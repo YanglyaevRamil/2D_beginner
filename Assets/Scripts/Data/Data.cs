@@ -6,19 +6,36 @@ using UnityEngine;
 public class Data : ScriptableObject
 {
     [SerializeField] private string playerDataPath;
-    private PlayerData[] playerData;
-    public PlayerData[] Player
+    private PlayerData playerData;
+
+    [SerializeField] private string characterDataPath;
+    private CharacterData[] characterData;
+    public PlayerData Player
     {
         get
         {
             if (playerData == null)
             {
-                playerData = LoadAll<PlayerData>("ScriptableObject/" + playerDataPath);
+                playerData = Load<PlayerData>("ScriptableObject/" + playerDataPath);
             }
     
             return playerData;
         }
     }
+
+    public CharacterData[] Character
+    {
+        get
+        {
+            if (characterData == null)
+            {
+                characterData = LoadAll<CharacterData>("ScriptableObject/" + characterDataPath);
+            }
+
+            return characterData;
+        }
+    }
+
 
     private T[] LoadAll<T>(string resourcesPath) where T : Object =>
         Resources.LoadAll<T>(Path.ChangeExtension(resourcesPath, null));
