@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Player : ICleanup
 {
-    private UserInput _userInput;
+    private UserInput _userInput; 
     private PlayerData _playerData;
 
     private IMoving moving;

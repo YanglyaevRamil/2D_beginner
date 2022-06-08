@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 internal sealed class GameInitialization
@@ -12,6 +10,8 @@ internal sealed class GameInitialization
         var playerBuilder = new BuilderPlayer(PlayerCnst.PATH_GO);
         var player = new Player(userInput, data.Player, playerBuilder.GetGO());
 
+        var characterFactory = new CharacterFactory(CharacterCnst.PATH_GO);
+         characterFactory.GetGO(CharacterType.Swordsman);
 
         controllers.Add(userInput);
         controllers.Add(paralax);

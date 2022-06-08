@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BuilderPlayer : Builder
 {
-    public BuilderPlayer(string s) : base(s)
+    public BuilderPlayer(string s) : base(s) 
     {
 
     }
