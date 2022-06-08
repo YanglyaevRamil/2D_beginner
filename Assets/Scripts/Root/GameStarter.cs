@@ -11,12 +11,14 @@ public class GameStarter : MonoBehaviour
     [SerializeField]
     private SpriteRenderer _background;
 
+    private GameInitialization _gameInitialization;
     private Controllers controllers;
 
     private void Start()
     {
         controllers = new Controllers();
-        new GameInitialization(controllers, _data, _camera, _background);
+
+        _gameInitialization = new GameInitialization(controllers, _data, _camera, _background);
 
         controllers.Initialization();
     }

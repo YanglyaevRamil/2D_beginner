@@ -7,11 +7,11 @@ internal sealed class GameInitialization
         var userInput = new UserInput();
         var paralax = new ParalaxController(camera, background.transform);
 
-        var playerBuilder = new BuilderPlayer(PlayerCnst.PATH_GO);
-        var player = new Player(userInput, data.Player, playerBuilder.GetGO());
+        var playerBuilder = new BuilderPlayer();
+        var playerGO = playerBuilder.GetGO(PlayerCnst.PATH_GO);
+        var player = new Player(userInput, data.Player, playerGO);
 
-        var characterFactory = new CharacterFactory(CharacterCnst.PATH_GO);
-         characterFactory.GetGO(CharacterType.Swordsman);
+        camera.transform.SetParent(playerGO.transform); // ??? crutch ???
 
         controllers.Add(userInput);
         controllers.Add(paralax);

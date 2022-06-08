@@ -2,16 +2,13 @@ using UnityEngine;
 
 public class BuilderPlayer : Builder
 {
-    public BuilderPlayer(string s) : base(s) 
+    public override GameObject GetGO(string s) 
     {
+        var go = base.GetGO(s);
+        go.name = PlayerCnst.NAME;
+        go.AddComponent<PlayerView>();
+        go.AddComponent<Rigidbody2D>();
 
-    }
-
-    public override GameObject GetGO()
-    {
-        var GO = base.GetGO();
-        GO.AddComponent<PlayerView>();
-
-        return GO;
+        return go;
     }
 }

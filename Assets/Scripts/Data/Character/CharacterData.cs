@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New CharacterData", menuName = "CharacterData", order = 51)]
+[CreateAssetMenu(fileName = "New CharacterData", menuName = "Configs/CharacterData")]
 public class CharacterData : ScriptableObject
 {
     [SerializeField]

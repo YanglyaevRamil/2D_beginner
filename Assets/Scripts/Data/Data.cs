@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Data", menuName = "Data", order = 51)]
+[CreateAssetMenu(fileName = "New Data", menuName = "Configs/Data")]
 public class Data : ScriptableObject
 {
     [SerializeField] private string playerDataPath;
@@ -35,7 +35,6 @@ public class Data : ScriptableObject
             return characterData;
         }
     }
-
 
     private T[] LoadAll<T>(string resourcesPath) where T : Object =>
         Resources.LoadAll<T>(Path.ChangeExtension(resourcesPath, null));

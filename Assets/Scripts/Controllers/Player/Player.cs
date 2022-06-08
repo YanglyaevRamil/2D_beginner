@@ -9,6 +9,8 @@ public class Player : ICleanup, IExecute
 
     private IMoving _moving;
     private ILifeCycle _lifeCycle;
+
+    private bool peaceFlag;
     public Player(UserInput userInput, PlayerData playerData, GameObject go)
     {
         _userInput = userInput;
@@ -20,9 +22,11 @@ public class Player : ICleanup, IExecute
         _moving = new ObjectMoving(go?.GetComponent<Rigidbody2D>(), _playerData.Speed);
         _lifeCycle = new ObjectLifeCycle(_playerData.Health);
 
-        _userInput.OninputFire += Fire;
-        _userInput.OnInputHorizontal += MovingY;
-        _userInput.OninputVertical += MovingX;
+        //_userInput.OninputFire += Fire;
+        //_userInput.OnInputHorizontal += MovingY;
+        //_userInput.OnInputHorizontal += AnimationMovingY;
+        _userInput.OnInputHorizontal += MovingX;
+        _userInput.OnInputHorizontal += AnimationMovingX;
     }
 
     private void MovingY(float dir)
@@ -40,17 +44,35 @@ public class Player : ICleanup, IExecute
     
     private void MovingX(float dir)
     {
-        _moving.Moving(new Vector3(dir, 0f, 0f));
+        if (dir > 0 || dir < 0)
+        {
+            _moving.Moving(new Vector3(dir, 0f, 0f));
+        }
+    }
 
+    private void AnimationMovingX(float dir)
+    {
         if (dir > 0)
+        {
+            if (_spriteRenderer.flipX) { _spriteRenderer.flipX = !_spriteRenderer.flipX; }
+                
             _spriteAnimator.StartAnimation(_spriteRenderer, Track.Walk, true, _playerData.SpriteAnimationsConfig.SpeedAnimation);
+        }
+        else if (dir < 0)
+        {
+            if (!_spriteRenderer.flipX ) { _spriteRenderer.flipX = !_spriteRenderer.flipX; }
+
+            _spriteAnimator.StartAnimation(_spriteRenderer, Track.Walk, true, _playerData.SpriteAnimationsConfig.SpeedAnimation);
+        }
         else
-            _spriteAnimator.StopAnimation(_spriteRenderer);
+        {
+            _spriteAnimator.StartAnimation(_spriteRenderer, Track.Idle, true, _playerData.SpriteAnimationsConfig.SpeedAnimation);
+        }
     }
 
     private void Fire(float obj)
     {
-        Debug.Log(")= PEW =(");
+      
     }
 
     public void Cleanup()
@@ -58,6 +80,8 @@ public class Player : ICleanup, IExecute
         _userInput.OninputFire -= Fire;
         _userInput.OnInputHorizontal -= MovingY;
         _userInput.OninputVertical -= MovingX;
+        _userInput.OnInputHorizontal -= AnimationMovingY;
+        _userInput.OninputVertical -= AnimationMovingX;
         _spriteAnimator.Cleanup();
     }
 
