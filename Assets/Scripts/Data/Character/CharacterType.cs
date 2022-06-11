@@ -1,6 +1,7 @@
 public enum CharacterType
 {
-    Archer    = 0,
-    Swordsman = 1,
-    Animal    = 2
+    Player  = 0,
+    Eagle   = 1,
+    Frog    = 2,
+    Opossum = 3
 }

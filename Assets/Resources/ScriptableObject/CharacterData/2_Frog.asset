@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 814495288aabdc243a78e82695e9d535, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: 8328894b62a62914195241254e0ad398, type: 3}
+  m_Name: 2_Frog
   m_EditorClassIdentifier: 
-  characterType: 1
-  description: Player
+  characterType: 2
+  characterClass: 1
+  description: 
   health: 100
-  damage: 30
+  damage: 10
   speed: 0.01
-  spriteAnimationsConfig: {fileID: 11400000, guid: d388a70ec5589b2468f21bb3808cc755, type: 2}
+  spriteAnimationsConfig: {fileID: 11400000, guid: 4a7a77c7ea567ae48b3924d8739f2150, type: 2}

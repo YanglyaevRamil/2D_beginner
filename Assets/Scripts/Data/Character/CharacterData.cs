@@ -23,7 +23,7 @@ public class CharacterData : ScriptableObject
     private float speed;
     
     [SerializeField]
-    private List<SpritesSequence> _spritesSequence;
+    private SpriteAnimationsConfig spriteAnimationsConfig;
     
     public CharacterType ÑharacterType { get { return characterType; } }
     public CharacterClass CharacterClass { get { return characterClass; } }
@@ -31,5 +31,5 @@ public class CharacterData : ScriptableObject
     public int Health { get { return health; } }
     public int Damage { get { return damage; } }
     public float Speed { get { return speed; } }
-    public List<SpritesSequence> SpritesSequence => _spritesSequence;
+    public SpriteAnimationsConfig SpriteAnimationsConfig => spriteAnimationsConfig;
 }

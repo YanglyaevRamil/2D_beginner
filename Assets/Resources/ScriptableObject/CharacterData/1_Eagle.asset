@@ -10,18 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8328894b62a62914195241254e0ad398, type: 3}
-  m_Name: CharacterData
+  m_Name: 1_Eagle
   m_EditorClassIdentifier: 
   characterType: 1
-  characterClass: 2
+  characterClass: 0
   description: 
-  health: 50
+  health: 20
   damage: 10
-  speed: 1
-  _spritesSequence:
-  - Track: 1
-    Sprites:
-    - {fileID: 21300000, guid: 86ca59b9bca0e409b9ba2784fbe69f01, type: 3}
-    - {fileID: 21300000, guid: 116ac2caa16ad4f73af4539f8b07d019, type: 3}
-    - {fileID: 21300000, guid: 662ace939438646e7a4067a89ec54b9e, type: 3}
-    - {fileID: 21300000, guid: b0305a6bb0adb4f66b864290967ea22b, type: 3}
+  speed: 0.01
+  spriteAnimationsConfig: {fileID: 11400000, guid: f01e4fccf248bbd49a83b4fe1a48426a, type: 2}
