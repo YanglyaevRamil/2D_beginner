@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 3_OpossumSpriteAnimationsConfig
   m_EditorClassIdentifier: 
   sequences: []
-  speedAnimation: 0
+  speedAnimation: 6

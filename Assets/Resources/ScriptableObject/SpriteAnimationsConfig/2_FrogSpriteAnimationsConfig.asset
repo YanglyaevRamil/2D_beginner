@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: 2_FrogSpriteAnimationsConfig
   m_EditorClassIdentifier: 
   sequences: []
-  speedAnimation: 0
+  speedAnimation: 6
