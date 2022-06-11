@@ -5,5 +5,7 @@ public enum Track
     Idle,
     Jump,
     Climb,
-    Fly
+    Fly,
+    Crouch,
+    Hurt
 }
