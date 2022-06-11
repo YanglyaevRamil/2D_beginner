@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Data", menuName = "Configs/Data")]
 public class Data : ScriptableObject
 {
+    [SerializeField] private string characterPrefPath;
+
     [SerializeField] private string playerDataPath;
     private PlayerData playerData;
 
@@ -35,6 +37,8 @@ public class Data : ScriptableObject
             return characterData;
         }
     }
+
+    public string CharacterPrefPath { get { return characterPrefPath; } }
 
     private T[] LoadAll<T>(string resourcesPath) where T : Object =>
         Resources.LoadAll<T>(Path.ChangeExtension(resourcesPath, null));
