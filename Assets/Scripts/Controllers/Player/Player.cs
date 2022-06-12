@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player : ICleanup, IExecute
 {
     private UserInput _userInput;
-    private PlayerData _playerData;
+    private CharacterData _playerData;
     private SpriteAnimator _spriteAnimator;
     private SpriteRenderer _spriteRenderer;
 
@@ -11,7 +11,7 @@ public class Player : ICleanup, IExecute
     private ILifeCycle _lifeCycle;
 
     private bool peaceFlag;
-    public Player(UserInput userInput, PlayerData playerData, GameObject go)
+    public Player(UserInput userInput, CharacterData playerData, GameObject go)
     {
         _userInput = userInput;
         _playerData = playerData;
@@ -19,6 +19,7 @@ public class Player : ICleanup, IExecute
         _spriteRenderer = go?.GetComponent<SpriteRenderer>();
         _spriteAnimator = new SpriteAnimator(playerData.SpriteAnimationsConfig);
         
+
         _moving = new ObjectMoving(go?.GetComponent<Rigidbody2D>(), _playerData.Speed);
         _lifeCycle = new ObjectLifeCycle(_playerData.Health);
 

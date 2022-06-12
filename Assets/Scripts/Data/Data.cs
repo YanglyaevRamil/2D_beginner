@@ -7,31 +7,16 @@ public class Data : ScriptableObject
 {
     [SerializeField] private string characterPrefPath;
 
-    [SerializeField] private string playerDataPath;
-    private PlayerData playerData;
-
     [SerializeField] private string characterDataPath;
     private CharacterData[] characterData;
-    public PlayerData Player
-    {
-        get
-        {
-            if (playerData == null)
-            {
-                playerData = Load<PlayerData>("ScriptableObject/" + playerDataPath);
-            }
-    
-            return playerData;
-        }
-    }
 
     public CharacterData[] Character
     {
         get
         {
-            if (characterData == null)
+            if (characterData == null || characterData.Length == 0)
             {
-                characterData = LoadAll<CharacterData>("ScriptableObject/" + characterDataPath);
+                characterData = LoadAll<CharacterData>(characterDataPath);
             }
 
             return characterData;
