@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Data
   m_EditorClassIdentifier: 
   characterPrefPath: Prefabs/Character
-  playerDataPath: PlayerData/PlayerData
-  characterDataPath: CharacterData
+  characterDataPath: ScriptableObject/CharacterData
