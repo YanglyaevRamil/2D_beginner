@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Player : ICleanup, IExecute
@@ -9,8 +10,11 @@ public class Player : ICleanup, IExecute
 
     private IMoving _moving;
     private ILifeCycle _lifeCycle;
+    private IJumping _jumping;
 
-    private bool peaceFlag;
+    private ContactsPoller _contactsPoller;
+
+    private bool permissionClimb = false;
     public Player(UserInput userInput, CharacterData playerData, GameObject go)
     {
         _userInput = userInput;
@@ -18,29 +22,56 @@ public class Player : ICleanup, IExecute
 
         _spriteRenderer = go?.GetComponent<SpriteRenderer>();
         _spriteAnimator = new SpriteAnimator(playerData.SpriteAnimationsConfig);
-        
 
-        _moving = new ObjectMoving(go?.GetComponent<Rigidbody2D>(), _playerData.Speed);
+        var rb = go?.GetComponent<Rigidbody2D>();
+        _moving = new ObjectMoving(rb, _playerData.SpeedMax, _playerData.Acceleration);
         _lifeCycle = new ObjectLifeCycle(_playerData.Health);
+        _jumping = new ObjectJump(rb);
 
-        //_userInput.OninputFire += Fire;
-        //_userInput.OnInputHorizontal += MovingY;
-        //_userInput.OnInputHorizontal += AnimationMovingY;
+        _contactsPoller = new ContactsPoller(go?.GetComponent<CircleCollider2D>(), playerData.CharacterPhysicalSettings.CollisionThresh);
+
+
         _userInput.OnInputHorizontal += MovingX;
         _userInput.OnInputHorizontal += AnimationMovingX;
+        _userInput.OninputVertical += MovingY;
+        _userInput.OninputVertical += AnimationMovingY;
+        _userInput.OninputJump += Jumping;
+
+        var pv = go?.GetComponent<PlayerView>();
+        pv.OnClingEnter += SetPermissionClimbEnter;
+        pv.OnClingExit += SetPermissionClimbExit;
+    }
+
+
+
+    private void SetPermissionClimbEnter(Transform transform)
+    {
+        permissionClimb = true;
+    }
+    private void SetPermissionClimbExit()
+    {
+        permissionClimb = false;
+    }
+
+    private void Jumping(float dir)
+    {
+        if (dir > 0 & _contactsPoller.IsGrounded)
+        {
+            _jumping.Jumping(_playerData.JumpForce);
+        }
     }
 
     private void MovingY(float dir)
     {
-        _moving.Moving(new Vector3(0f, dir, 0f));
+        if (dir > 0 & permissionClimb)
+        {
+            _moving.Moving(new Vector3(0, dir, 0f));
+        }
     }
 
     private void AnimationMovingY(float dir)
     {
-        if (dir > 0)
-            _spriteAnimator.StartAnimation(_spriteRenderer, Track.Jump, true, _playerData.SpriteAnimationsConfig.SpeedAnimation);
-        else
-            _spriteAnimator.StopAnimation(_spriteRenderer);
+
     }
     
     private void MovingX(float dir)
@@ -76,16 +107,6 @@ public class Player : ICleanup, IExecute
       
     }
 
-    public void Cleanup()
-    {
-        _userInput.OninputFire -= Fire;
-        _userInput.OnInputHorizontal -= MovingY;
-        _userInput.OninputVertical -= MovingX;
-        _userInput.OnInputHorizontal -= AnimationMovingY;
-        _userInput.OninputVertical -= AnimationMovingX;
-        _spriteAnimator.Cleanup();
-    }
-
     public void DamageTake(int damageTaken)
     {
         _lifeCycle.DamageTake(damageTaken);
@@ -99,5 +120,18 @@ public class Player : ICleanup, IExecute
     public void Execute(float deltaTime)
     {
         _spriteAnimator.Execute(deltaTime);
+        _contactsPoller.Execute(deltaTime);
+    }
+
+    public void Cleanup()
+    {
+        _userInput.OninputFire -= Fire;
+
+        _userInput.OnInputHorizontal -= MovingY;
+        _userInput.OninputVertical -= MovingX;
+
+        _userInput.OninputVertical -= AnimationMovingX;
+
+        _spriteAnimator.Cleanup();
     }
 }

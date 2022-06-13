@@ -21,9 +21,16 @@ public class UserInput : IFixedExecute
         remove { _inputFire.AxisOnChange -= value; }
     }
 
+    public event Action<float> OninputJump
+    {
+        add { _inputJump.AxisOnChange += value; }
+        remove { _inputJump.AxisOnChange -= value; }
+    }
+
     private IUserInputProxy _inputHorizontal;
     private IUserInputProxy _inputVertical;
     private IUserInputProxy _inputFire;
+    private IUserInputProxy _inputJump;
 
     public UserInput()
     {
@@ -34,6 +41,7 @@ public class UserInput : IFixedExecute
         _inputHorizontal = new PCInputHorizontal();
         _inputVertical = new PCInputVertical();
         _inputFire = new PCInputFire();
+        _inputJump = new PCInputJump();
     }
 
     public void FixedExecute()
@@ -41,5 +49,6 @@ public class UserInput : IFixedExecute
         _inputHorizontal.GetAxis();
         _inputVertical.GetAxis();
         _inputFire.GetAxis();
+        _inputJump.GetAxis();
     }
 }

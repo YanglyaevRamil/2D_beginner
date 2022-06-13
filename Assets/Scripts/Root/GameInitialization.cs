@@ -10,10 +10,10 @@ internal sealed class GameInitialization
         var loadPrefCharacter = new LoaderPrefabs(data.CharacterPrefPath);
 
         var playerGO = loadPrefCharacter.GetGO(CharacterType.Player);
+        playerGO.AddComponent<PlayerView>();
 
-        playerGO.transform.position += new Vector3(0,1,0);
 
-        Debug.Log(data.Character.Length);
+        playerGO.transform.position += new Vector3(0,0.5f,0);
 
         var player = new Player(userInput, data.Character[(int)CharacterType.Player], playerGO);
 
