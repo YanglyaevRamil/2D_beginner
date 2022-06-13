@@ -9,6 +9,10 @@ public class CharacterPhysicalSettings : ScriptableObject
     [SerializeField]
     private float climbThresh;
 
+    [SerializeField]
+    private float speedThresh;
+
     public float CollisionThresh { get { return collisionThresh; } }
     public float ClimbThresh { get { return climbThresh; } }
+    public float SpeedThresh { get { return speedThresh; } }
 }

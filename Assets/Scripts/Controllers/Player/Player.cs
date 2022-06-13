@@ -26,7 +26,7 @@ public class Player : ICleanup, IExecute
         _spriteAnimator = new SpriteAnimator(_playerData.SpriteAnimationsConfig);
         _rigidbody2D = go?.GetComponent<Rigidbody2D>();
 
-        _moving = new ObjectMoving(_rigidbody2D, _playerData.SpeedMax, _playerData.Acceleration);
+        _moving = new ObjectMoving(_rigidbody2D, _playerData.SpeedMax, _playerData.Acceleration, playerData.CharacterPhysicalSettings.SpeedThresh);
         _lifeCycle = new ObjectLifeCycle(_playerData.Health);
         _jumping = new ObjectJump(_rigidbody2D);
         _climb = new ObjectClimb(_rigidbody2D, _playerData.SpeedClimb, _playerData.CharacterPhysicalSettings.ClimbThresh);
