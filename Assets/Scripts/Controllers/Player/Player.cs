@@ -7,10 +7,12 @@ public class Player : ICleanup, IExecute
     private CharacterData _playerData;
     private SpriteAnimator _spriteAnimator;
     private SpriteRenderer _spriteRenderer;
+    private Rigidbody2D _rigidbody2D;
 
     private IMoving _moving;
     private ILifeCycle _lifeCycle;
     private IJumping _jumping;
+    private IClimb _climb;
 
     private ContactsPoller _contactsPoller;
 
@@ -21,28 +23,26 @@ public class Player : ICleanup, IExecute
         _playerData = playerData;
 
         _spriteRenderer = go?.GetComponent<SpriteRenderer>();
-        _spriteAnimator = new SpriteAnimator(playerData.SpriteAnimationsConfig);
+        _spriteAnimator = new SpriteAnimator(_playerData.SpriteAnimationsConfig);
+        _rigidbody2D = go?.GetComponent<Rigidbody2D>();
 
-        var rb = go?.GetComponent<Rigidbody2D>();
-        _moving = new ObjectMoving(rb, _playerData.SpeedMax, _playerData.Acceleration);
+        _moving = new ObjectMoving(_rigidbody2D, _playerData.SpeedMax, _playerData.Acceleration);
         _lifeCycle = new ObjectLifeCycle(_playerData.Health);
-        _jumping = new ObjectJump(rb);
+        _jumping = new ObjectJump(_rigidbody2D);
+        _climb = new ObjectClimb(_rigidbody2D, _playerData.SpeedClimb, _playerData.CharacterPhysicalSettings.ClimbThresh);
 
         _contactsPoller = new ContactsPoller(go?.GetComponent<CircleCollider2D>(), playerData.CharacterPhysicalSettings.CollisionThresh);
-
-
-        _userInput.OnInputHorizontal += MovingX;
-        _userInput.OnInputHorizontal += AnimationMovingX;
-        _userInput.OninputVertical += MovingY;
-        _userInput.OninputVertical += AnimationMovingY;
-        _userInput.OninputJump += Jumping;
 
         var pv = go?.GetComponent<PlayerView>();
         pv.OnClingEnter += SetPermissionClimbEnter;
         pv.OnClingExit += SetPermissionClimbExit;
+
+        _userInput.OnInputHorizontal += MovingX;
+        _userInput.OnInputHorizontal += AnimationMovingX;
+        _userInput.OninputVertical += Climb;
+        _userInput.OninputVertical += AnimationMovingY;
+        _userInput.OninputJump += Jumping;
     }
-
-
 
     private void SetPermissionClimbEnter(Transform transform)
     {
@@ -51,21 +51,23 @@ public class Player : ICleanup, IExecute
     private void SetPermissionClimbExit()
     {
         permissionClimb = false;
+        _rigidbody2D.gravityScale = 3;
     }
 
     private void Jumping(float dir)
     {
-        if (dir > 0 & _contactsPoller.IsGrounded)
+        if (dir > 0 & (_contactsPoller.IsGrounded | permissionClimb))
         {
             _jumping.Jumping(_playerData.JumpForce);
         }
     }
 
-    private void MovingY(float dir)
+    private void Climb(float dir)
     {
-        if (dir > 0 & permissionClimb)
+        if ((Math.Abs(dir) > 0) & permissionClimb)
         {
-            _moving.Moving(new Vector3(0, dir, 0f));
+          _rigidbody2D.gravityScale = 0;
+          _climb.Climb(dir);
         }
     }
 
@@ -127,7 +129,7 @@ public class Player : ICleanup, IExecute
     {
         _userInput.OninputFire -= Fire;
 
-        _userInput.OnInputHorizontal -= MovingY;
+        _userInput.OnInputHorizontal -= Climb;
         _userInput.OninputVertical -= MovingX;
 
         _userInput.OninputVertical -= AnimationMovingX;

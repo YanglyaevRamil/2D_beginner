@@ -19,6 +19,9 @@ public class CharacterData : ScriptableObject
     private int damage;
 
     [SerializeField]
+    private float speedClimb;
+
+    [SerializeField]
     private float speedMax;
 
     [SerializeField]
@@ -38,6 +41,7 @@ public class CharacterData : ScriptableObject
     public string Description { get { return description; } }
     public int Health { get { return health; } }
     public int Damage { get { return damage; } }
+    public float SpeedClimb { get { return speedClimb; } }
     public float SpeedMax { get { return speedMax; } }
     public float Acceleration { get { return acceleration; } }
     public float JumpForce { get { return jumpForce; } }

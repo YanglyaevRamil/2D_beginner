@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: 0_Player
   m_EditorClassIdentifier: 
   collisionThresh: 0.2
+  climbThresh: 0.1

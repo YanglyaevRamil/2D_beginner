@@ -17,7 +17,8 @@ MonoBehaviour:
   description: Player
   health: 100
   damage: 30
-  speedMax: 1.5
+  speedClimb: 0.5
+  speedMax: 1.1
   acceleration: 1
   jumpForce: 150
   spriteAnimationsConfig: {fileID: 11400000, guid: d388a70ec5589b2468f21bb3808cc755, type: 2}
