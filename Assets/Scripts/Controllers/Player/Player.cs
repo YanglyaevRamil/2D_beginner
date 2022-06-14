@@ -58,7 +58,11 @@ public class Player : ICleanup, IExecute
             if (_contactsPoller.IsGrounded || permissionClimb)
             {
                 _jumping.Jumping(_playerData.JumpForce);
-                //SetFSM(Track.Jump);
+                //_animator.SetAmimation(Track.Jump, false);
+            }
+            else
+            {
+                _animator.SetAmimation(Track.Idle, true);
             }
     }
 
