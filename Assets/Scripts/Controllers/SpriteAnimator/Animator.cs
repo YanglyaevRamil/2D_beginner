@@ -8,15 +8,18 @@ public class Animator : IExecute, ICleanup
     private Dictionary<Track, bool> states;
     private SpriteAnimationsConfig _spriteAnimationsConfig;
     private SpriteRenderer _spriteRenderer;
+
+    private bool _loop;
     public Animator(SpriteRenderer spriteRenderer, SpriteAnimationsConfig spriteAnimationsConfig)
     {
+        _loop = true;
         _spriteRenderer = spriteRenderer;
         states = new Dictionary<Track, bool>();
         for (int i = 0; i < Enum.GetNames(typeof(Track)).Length; i++)
         {
             states.Add((Track)i, false);
         }
-        SetFSM(Track.Idle);
+        SetAmimation(Track.Idle, true);
 
         _spriteAnimator = new SpriteAnimator(spriteAnimationsConfig);
         _spriteAnimationsConfig = spriteAnimationsConfig;
@@ -28,14 +31,15 @@ public class Animator : IExecute, ICleanup
         {
             if (states[(Track)i])
             {
-                _spriteAnimator.StartAnimation(_spriteRenderer, (Track)i, true, _spriteAnimationsConfig.SpeedAnimation);
+                _spriteAnimator.StartAnimation(_spriteRenderer, (Track)i, _loop, _spriteAnimationsConfig.SpeedAnimation);
                 break;
             }
         }
     }
 
-    public void SetFSM(Track track)
+    public void SetAmimation(Track track, bool loop)
     {
+        _loop = loop;
         for (int i = 0; i < states.Count; i++)
         {
             if ((Track)i == track)

@@ -69,11 +69,11 @@ public class Player : ICleanup, IExecute
             {
                 _rigidbody2D.gravityScale = 0;
                 _climb.Climb(dir);
-                _animator.SetFSM(Track.Climb);
+                _animator.SetAmimation(Track.Climb, true);
             }
         else
             {
-                _animator.SetFSM(Track.Idle);
+                _animator.SetAmimation(Track.Idle, true);
             }
     }
     
@@ -82,7 +82,7 @@ public class Player : ICleanup, IExecute
         if(Math.Abs(dir) > 0)
         {
             _moving.Moving(new Vector3(dir, 0f, 0f));
-            _animator.SetFSM(Track.Walk);
+            _animator.SetAmimation(Track.Walk, true);
             if (dir > 0)
                 _spriteRenderer.flipX = false;
             else
@@ -90,7 +90,7 @@ public class Player : ICleanup, IExecute
         }
         else
         {
-            _animator.SetFSM(Track.Idle);
+            _animator.SetAmimation(Track.Idle, true);
         }
     }
 
