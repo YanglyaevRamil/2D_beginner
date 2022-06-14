@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player
+  m_Name: player
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -77,5 +77,5 @@ SpriteAtlas:
   - player-climb-3
   - player-climb-1
   m_RenderDataMap: {}
-  m_Tag: Player
+  m_Tag: player
   m_IsVariant: 0

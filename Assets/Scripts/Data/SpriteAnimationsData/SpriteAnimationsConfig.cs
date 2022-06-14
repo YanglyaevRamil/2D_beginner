@@ -10,7 +10,7 @@ public class SpriteAnimationsConfig : ScriptableObject
     [SerializeField]
     private float speedAnimation;
 
-    public List<SpritesSequence> Sequences => sequences;
+    public List<SpritesSequence> Sequences { get { return sequences; } }
 
-    public float SpeedAnimation => speedAnimation;
+    public float SpeedAnimation { get { return speedAnimation; } }
 }

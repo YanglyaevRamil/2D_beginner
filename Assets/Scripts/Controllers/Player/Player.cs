@@ -5,27 +5,27 @@ public class Player : ICleanup, IExecute
 {
     private UserInput _userInput;
     private CharacterData _playerData;
-    private SpriteAnimator _spriteAnimator;
-    private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2D;
-
+    private SpriteRenderer _spriteRenderer;
     private IMoving _moving;
     private ILifeCycle _lifeCycle;
     private IJumping _jumping;
     private IClimb _climb;
 
     private ContactsPoller _contactsPoller;
+    private Animator _animator;
 
     private bool permissionClimb = false;
+
     public Player(UserInput userInput, CharacterData playerData, GameObject go)
     {
         _userInput = userInput;
         _playerData = playerData;
 
         _spriteRenderer = go?.GetComponent<SpriteRenderer>();
-        _spriteAnimator = new SpriteAnimator(_playerData.SpriteAnimationsConfig);
-        _rigidbody2D = go?.GetComponent<Rigidbody2D>();
+        _animator = new Animator(_spriteRenderer, playerData.SpriteAnimationsConfig);
 
+        _rigidbody2D = go?.GetComponent<Rigidbody2D>();
         _moving = new ObjectMoving(_rigidbody2D, _playerData.SpeedMax, _playerData.Acceleration, playerData.CharacterPhysicalSettings.SpeedThresh);
         _lifeCycle = new ObjectLifeCycle(_playerData.Health);
         _jumping = new ObjectJump(_rigidbody2D);
@@ -38,7 +38,6 @@ public class Player : ICleanup, IExecute
         pv.OnClingExit += SetPermissionClimbExit;
 
         _userInput.OnInputHorizontal += MovingX;
-        _userInput.OnInputHorizontal += AnimationMovingX;
         _userInput.OninputVertical += Climb;
         _userInput.OninputJump += Jumping;
     }
@@ -55,46 +54,43 @@ public class Player : ICleanup, IExecute
 
     private void Jumping(float dir)
     {
-        if (dir > 0 & (_contactsPoller.IsGrounded || permissionClimb))
-        {
-            _jumping.Jumping(_playerData.JumpForce);
-        }
+        if (Math.Abs(dir) > 0)
+            if (_contactsPoller.IsGrounded || permissionClimb)
+            {
+                _jumping.Jumping(_playerData.JumpForce);
+                //SetFSM(Track.Jump);
+            }
     }
 
     private void Climb(float dir)
     {
-        if ((Math.Abs(dir) > 0) && permissionClimb)
-        {
-          _rigidbody2D.gravityScale = 0;
-          _climb.Climb(dir);
-        }
+        if(Math.Abs(dir) > 0)
+            if (permissionClimb)
+            {
+                _rigidbody2D.gravityScale = 0;
+                _climb.Climb(dir);
+                _animator.SetFSM(Track.Climb);
+            }
+        else
+            {
+                _animator.SetFSM(Track.Idle);
+            }
     }
     
     private void MovingX(float dir)
     {
-        if (dir > 0 || dir < 0)
+        if(Math.Abs(dir) > 0)
         {
             _moving.Moving(new Vector3(dir, 0f, 0f));
-        }
-    }
-
-    private void AnimationMovingX(float dir)
-    {
-        if (dir > 0)
-        {
-            if (_spriteRenderer.flipX) { _spriteRenderer.flipX = !_spriteRenderer.flipX; }
-                
-            _spriteAnimator.StartAnimation(_spriteRenderer, Track.Walk, true, _playerData.SpriteAnimationsConfig.SpeedAnimation);
-        }
-        else if (dir < 0)
-        {
-            if (!_spriteRenderer.flipX ) { _spriteRenderer.flipX = !_spriteRenderer.flipX; }
-
-            _spriteAnimator.StartAnimation(_spriteRenderer, Track.Walk, true, _playerData.SpriteAnimationsConfig.SpeedAnimation);
+            _animator.SetFSM(Track.Walk);
+            if (dir > 0)
+                _spriteRenderer.flipX = false;
+            else
+                _spriteRenderer.flipX = true;
         }
         else
         {
-            _spriteAnimator.StartAnimation(_spriteRenderer, Track.Idle, true, _playerData.SpriteAnimationsConfig.SpeedAnimation);
+            _animator.SetFSM(Track.Idle);
         }
     }
 
@@ -110,18 +106,15 @@ public class Player : ICleanup, IExecute
 
     public void Execute(float deltaTime)
     {
-        _spriteAnimator.Execute(deltaTime);
         _contactsPoller.Execute(deltaTime);
+        _animator.Execute(deltaTime);
     }
 
     public void Cleanup()
     {
-
         _userInput.OnInputHorizontal -= Climb;
         _userInput.OninputVertical -= MovingX;
 
-        _userInput.OninputVertical -= AnimationMovingX;
-
-        _spriteAnimator.Cleanup();
+        _animator.Cleanup();
     }
 }
