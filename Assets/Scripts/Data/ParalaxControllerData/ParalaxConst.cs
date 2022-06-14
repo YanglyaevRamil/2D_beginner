@@ -1,5 +1,5 @@
 
-public static class ParalaxCnst
+public static class ParalaxConst
 {
     public const float Coef = 0.3f;
 }

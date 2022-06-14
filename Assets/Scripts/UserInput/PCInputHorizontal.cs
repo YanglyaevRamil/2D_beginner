@@ -7,6 +7,9 @@ public sealed class PCInputHorizontal : IUserInputProxy
 
     public void GetAxis()
     {
+        //float input;
+        //if(Math.Abs((input = Input.GetAxis(AxisManager.HORIZONTAL))) > 0)
+        //    AxisOnChange.Invoke(input);
         AxisOnChange.Invoke(Input.GetAxis(AxisManager.HORIZONTAL));
     }
 }

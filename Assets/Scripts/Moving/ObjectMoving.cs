@@ -30,7 +30,7 @@ internal sealed class ObjectMoving : IMoving
 
     }
 
-    public void UpdateSpedMax(float newSpeedMax)
+    public void UpdateSpeedMax(float newSpeedMax)
     {
         _speedMax += newSpeedMax;
     }

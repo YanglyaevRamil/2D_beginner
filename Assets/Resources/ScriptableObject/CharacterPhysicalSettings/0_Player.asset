@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionThresh: 0.2
   climbThresh: 0.1
+  speedThresh: 0
+  gravityScale: 3

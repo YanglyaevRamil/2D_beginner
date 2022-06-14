@@ -333,6 +333,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1353854137390278891, guid: eb27f9d9e4a07c24fbdc7106a02a504d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.78
+      objectReference: {fileID: 0}
     - target: {fileID: 1353854137842399918, guid: eb27f9d9e4a07c24fbdc7106a02a504d, type: 3}
       propertyPath: m_Name
       value: Map_lvl_1

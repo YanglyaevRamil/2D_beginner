@@ -40,7 +40,6 @@ public class Player : ICleanup, IExecute
         _userInput.OnInputHorizontal += MovingX;
         _userInput.OnInputHorizontal += AnimationMovingX;
         _userInput.OninputVertical += Climb;
-        _userInput.OninputVertical += AnimationMovingY;
         _userInput.OninputJump += Jumping;
     }
 
@@ -51,12 +50,12 @@ public class Player : ICleanup, IExecute
     private void SetPermissionClimbExit()
     {
         permissionClimb = false;
-        _rigidbody2D.gravityScale = 3;
+        _rigidbody2D.gravityScale = _playerData.CharacterPhysicalSettings.GravityScale;
     }
 
     private void Jumping(float dir)
     {
-        if (dir > 0 & (_contactsPoller.IsGrounded | permissionClimb))
+        if (dir > 0 & (_contactsPoller.IsGrounded || permissionClimb))
         {
             _jumping.Jumping(_playerData.JumpForce);
         }
@@ -64,16 +63,11 @@ public class Player : ICleanup, IExecute
 
     private void Climb(float dir)
     {
-        if ((Math.Abs(dir) > 0) & permissionClimb)
+        if ((Math.Abs(dir) > 0) && permissionClimb)
         {
           _rigidbody2D.gravityScale = 0;
           _climb.Climb(dir);
         }
-    }
-
-    private void AnimationMovingY(float dir)
-    {
-
     }
     
     private void MovingX(float dir)
@@ -104,11 +98,6 @@ public class Player : ICleanup, IExecute
         }
     }
 
-    private void Fire(float obj)
-    {
-      
-    }
-
     public void DamageTake(int damageTaken)
     {
         _lifeCycle.DamageTake(damageTaken);
@@ -127,7 +116,6 @@ public class Player : ICleanup, IExecute
 
     public void Cleanup()
     {
-        _userInput.OninputFire -= Fire;
 
         _userInput.OnInputHorizontal -= Climb;
         _userInput.OninputVertical -= MovingX;

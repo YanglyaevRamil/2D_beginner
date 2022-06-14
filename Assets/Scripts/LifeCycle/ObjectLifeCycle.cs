@@ -15,9 +15,9 @@ internal sealed class ObjectLifeCycle : ILifeCycle
         _health -= damageTaken;
     }
 
-    public bool DeathCheck(out int h)
+    public bool DeathCheck(out int healthLevel)
     {
-        h = _health;
+        healthLevel = _health;
         if (_health <= 0)
         {
             _health = 0;
@@ -30,8 +30,8 @@ internal sealed class ObjectLifeCycle : ILifeCycle
         
     }
 
-    public void UpdateHealth(int d)
+    public void UpdateHealth(int newHealth)
     {
-        _health += d;
+        _health += newHealth;
     }
 }

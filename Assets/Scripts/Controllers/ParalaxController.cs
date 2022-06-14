@@ -18,7 +18,7 @@ public class ParalaxController : IExecute
     public void Execute(float deltaTime)
     {
         
-        _backTransform.position = _backStartPosition + (_camera.transform.position - _cameraStartPosition) * ParalaxCnst.Coef;
+        _backTransform.position = _backStartPosition + (_camera.transform.position - _cameraStartPosition) * ParalaxConst.Coef;
     }
 
 }
