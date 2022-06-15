@@ -11,12 +11,12 @@ public class SpriteAnimator : ICleanup, IExecute
         _config = config;
     }
 
-    public void StartAnimation(SpriteRenderer spriteRenderer, Track track, bool loop, float speed)
+    public void StartAnimation(SpriteRenderer spriteRenderer, Track track, bool loop)
     {
         if (_activeAnimations.TryGetValue(spriteRenderer, out var animation))
         {
             animation.Loop = loop;
-            animation.Speed = speed;
+            animation.Speed = _config.SpeedAnimation;
             animation.Sleeps = false;
 
             if (animation.Track == track) 
@@ -33,7 +33,7 @@ public class SpriteAnimator : ICleanup, IExecute
                 Track = track,
                 Sprites = _config.Sequences.Find(sequence => sequence.Track == track).Sprites,
                 Loop = loop,
-                Speed = speed
+                Speed = _config.SpeedAnimation
             });
         }
     }
