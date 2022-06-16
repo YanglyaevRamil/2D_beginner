@@ -7,5 +7,6 @@ public enum Track
     Climb  = 3,
     Fly    = 4,
     Crouch = 5, 
-    Hurt   = 6 
+    Hurt   = 6,
+    Fall   = 7
 }

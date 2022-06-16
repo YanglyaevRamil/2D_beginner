@@ -13,34 +13,34 @@ public class PlayerAction : IExecute, ICleanup
 
         _spriteAnimator = new SpriteAnimator(spriteAnimationsConfig);
     }
-    public void Climb(SpriteRenderer spriteRenderer)
+    public void Climb(SpriteRenderer spriteRenderer, bool startOrStop)
     {
-        _playerState.Climb(this, spriteRenderer, _spriteAnimator);
+        _playerState.Climb(this, spriteRenderer, _spriteAnimator, startOrStop);
     }
 
-    public void Crouch(SpriteRenderer spriteRenderer)
+    public void Crouch(SpriteRenderer spriteRenderer, bool startOrStop)
     {
-        _playerState.Crouch(this, spriteRenderer, _spriteAnimator);
+        _playerState.Crouch(this, spriteRenderer, _spriteAnimator, startOrStop);
     }
 
-    public void Idle(SpriteRenderer spriteRenderer)
+    public void Idle(SpriteRenderer spriteRenderer, bool startOrStop)
     {
-        _playerState.Idle(this, spriteRenderer, _spriteAnimator);
+        _playerState.Idle(this, spriteRenderer, _spriteAnimator, startOrStop);
     }
 
-    public void Jump(SpriteRenderer spriteRenderer)
+    public void Jump(SpriteRenderer spriteRenderer, bool startOrStop)
     {
-        _playerState.Jump(this, spriteRenderer, _spriteAnimator);
+        _playerState.Jump(this, spriteRenderer, _spriteAnimator, startOrStop);
     }
 
-    public void Walk(SpriteRenderer spriteRenderer)
+    public void Walk(SpriteRenderer spriteRenderer, bool startOrStop)
     {
-        _playerState.Walk(this, spriteRenderer, _spriteAnimator);
+        _playerState.Walk(this, spriteRenderer, _spriteAnimator, startOrStop);
     }
 
-    public void Fall(SpriteRenderer spriteRenderer)
+    public void Fall(SpriteRenderer spriteRenderer, bool startOrStop)
     {
-        _playerState.Fall(this, spriteRenderer, _spriteAnimator);
+        _playerState.Fall(this, spriteRenderer, _spriteAnimator, startOrStop);
     }
 
     public void Execute(float deltaTime)

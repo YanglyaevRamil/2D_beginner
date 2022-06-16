@@ -34,7 +34,7 @@ public class CharacterData : ScriptableObject
     private SpriteAnimationsConfig spriteAnimationsConfig;
 
     [SerializeField]
-    private CharacterPhysicalSettings characterPhysicalSettings;
+    private CharacterSettings characterSettings;
 
     public CharacterType ÑharacterType { get { return characterType; } }
     public CharacterClass CharacterClass { get { return characterClass; } }
@@ -46,5 +46,5 @@ public class CharacterData : ScriptableObject
     public float Acceleration { get { return acceleration; } }
     public float JumpForce { get { return jumpForce; } }
     public SpriteAnimationsConfig SpriteAnimationsConfig => spriteAnimationsConfig;
-    public CharacterPhysicalSettings CharacterPhysicalSettings { get { return characterPhysicalSettings; } }
+    public CharacterSettings CharacterSettings { get { return characterSettings; } }
 }

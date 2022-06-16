@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class ClimbPlayerState : PlayerState
 {
-    public override void Climb(PlayerAction playerAction, SpriteRenderer spriteRenderer, SpriteAnimator spriteAnimator)
+    public override void Climb(PlayerAction playerAction, SpriteRenderer spriteRenderer, SpriteAnimator spriteAnimator, bool startOrStop)
     {
-        spriteAnimator.StartAnimation(spriteRenderer, Track.Climb, true);
-        Debug.Log("Climb");
+        if (startOrStop)
+            spriteAnimator.StartAnimation(spriteRenderer, Track.Climb, true);
+        else
+            spriteAnimator.StopAnimation(spriteRenderer);
     }
 }
