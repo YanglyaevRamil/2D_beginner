@@ -36,7 +36,7 @@ public class CharacterData : ScriptableObject
     [SerializeField]
     private CharacterSettings characterSettings;
 
-    public CharacterType ÑharacterType { get { return characterType; } }
+    public CharacterType CharacterType { get { return characterType; } }
     public CharacterClass CharacterClass { get { return characterClass; } }
     public string Description { get { return description; } }
     public int Health { get { return health; } }
