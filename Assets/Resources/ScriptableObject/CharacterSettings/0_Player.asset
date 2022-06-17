@@ -17,3 +17,23 @@ MonoBehaviour:
   speedThresh: 0.1
   flyThresh: 0.1
   gravityScale: 1
+  flipX: 0
+  flipY: 0
+  spriteDrawMode: 0
+  spriteMaskInteraction: 0
+  spriteSortPoint: 0
+  sortingOrder: 5
+  rigidbodyType2D: 0
+  sumulated: 1
+  useAutoMass: 0
+  mass: 1
+  linearDrag: 0
+  angularDrag: 0.05
+  collisionDetectionMode2D: 0
+  rigidbodySleepMode2D: 1
+  rigidbodyInterpolation2D: 1
+  rigidbodyConstraints2D: 4
+  isTrigger: 0
+  usedByEffector: 0
+  offset: {x: 0, y: -0.08}
+  radius: 0.08

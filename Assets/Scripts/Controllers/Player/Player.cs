@@ -7,6 +7,7 @@ public class Player : ICleanup, IExecute
     private CharacterData _playerData;
     private Rigidbody2D _rigidbody2D;
     private SpriteRenderer _spriteRenderer;
+    private PlayerComponents _playerComponents;
 
     private IMoving _moving;
     private ILifeCycle _lifeCycle;
@@ -25,15 +26,17 @@ public class Player : ICleanup, IExecute
         _userInput = userInput;
         _playerData = playerData;
 
-        _spriteRenderer = go?.GetComponent<SpriteRenderer>();
-        _rigidbody2D = go?.GetComponent<Rigidbody2D>();
+        _playerComponents = go?.GetComponent<PlayerComponents>();
+
+        _spriteRenderer = _playerComponents.SpriteRendering;
+        _rigidbody2D = _playerComponents.Rigidbody2D;
 
         _moving = new ObjectMoving(_rigidbody2D, _playerData.SpeedMax, _playerData.Acceleration, _playerData.CharacterSettings.SpeedThresh);
         _lifeCycle = new ObjectLifeCycle(_playerData.Health);
         _jumping = new ObjectJump(_rigidbody2D);
         _climb = new ObjectClimb(_rigidbody2D, _playerData.SpeedClimb, _playerData.CharacterSettings.ClimbThresh);
 
-        _contactsPoller = new ContactsPoller(go?.GetComponent<CircleCollider2D>(), _playerData.CharacterSettings.CollisionThresh);
+        _contactsPoller = new ContactsPoller(_playerComponents.CircleCollider2D, _playerData.CharacterSettings.CollisionThresh);
 
         var pv = go?.GetComponent<PlayerView>();
         pv.OnClingEnter += SetPermissionClimbEnter;
