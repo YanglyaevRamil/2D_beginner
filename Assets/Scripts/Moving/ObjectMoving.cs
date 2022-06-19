@@ -20,14 +20,14 @@ internal sealed class ObjectMoving : IMoving
         if (Mathf.Abs(dir.x) > _speedTresh)
         {
             if (Mathf.Abs(_rigidbody2D.velocity.x) <= _speedMax)
+            {
                 _rigidbody2D.velocity += dir * _acceleration;
+            }
         }
         else
         {
-            _rigidbody2D.velocity = new Vector2(0, 0);
+            _rigidbody2D.velocity = new Vector2(0, _rigidbody2D.velocity.y);
         }
-
-
     }
 
     public void UpdateSpeedMax(float newSpeedMax)

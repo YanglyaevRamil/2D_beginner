@@ -10,10 +10,10 @@ internal sealed class GameInitialization
         var loadPrefCharacter = new LoaderPrefabs(data.CharacterPrefPath);
 
         var playerGO = loadPrefCharacter.GetGO(CharacterType.Player);
-        playerGO.AddComponent<PlayerView>();
+
         playerGO.transform.position += new Vector3(0,0.5f,0);
 
-        var player = new Player(userInput, data.Character[(int)CharacterType.Player], playerGO);
+        var player = new Player(userInput, data.Character[(int)CharacterType.Player], playerGO.GetComponent<PlayerView>());
 
         camera.transform.SetParent(playerGO.transform); // ??? crutch ???
 

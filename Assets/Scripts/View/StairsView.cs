@@ -1,6 +1,3 @@
 using UnityEngine;
 
-public class StairsView : MonoBehaviour, ICling
-{
-
-}
+public class StairsView : MonoBehaviour, ICling {}

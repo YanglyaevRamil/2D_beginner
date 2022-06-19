@@ -7,7 +7,6 @@ public class Player : ICleanup, IExecute
     private CharacterData _playerData;
     private Rigidbody2D _rigidbody2D;
     private SpriteRenderer _spriteRenderer;
-    private PlayerComponents _playerComponents;
 
     private IMoving _moving;
     private ILifeCycle _lifeCycle;
@@ -18,29 +17,27 @@ public class Player : ICleanup, IExecute
     private PlayerAction _playerAction;
 
     private bool permissionClimb = false;
+    private bool isClimbs = false;
 
-    public Player(UserInput userInput, CharacterData playerData, GameObject go)
+    public Player(UserInput userInput, CharacterData playerData, PlayerView playerView)
     {
         _playerAction = new PlayerAction(new IdlePlayerState(), playerData.SpriteAnimationsConfig);
 
         _userInput = userInput;
         _playerData = playerData;
 
-        _playerComponents = go?.GetComponent<PlayerComponents>();
-
-        _spriteRenderer = _playerComponents.SpriteRendering;
-        _rigidbody2D = _playerComponents.Rigidbody2D;
+        _spriteRenderer = playerView.SpriteRenderer;
+        _rigidbody2D = playerView.Rigidbody2D;
 
         _moving = new ObjectMoving(_rigidbody2D, _playerData.SpeedMax, _playerData.Acceleration, _playerData.CharacterSettings.SpeedThresh);
         _lifeCycle = new ObjectLifeCycle(_playerData.Health);
         _jumping = new ObjectJump(_rigidbody2D);
         _climb = new ObjectClimb(_rigidbody2D, _playerData.SpeedClimb, _playerData.CharacterSettings.ClimbThresh);
 
-        _contactsPoller = new ContactsPoller(_playerComponents.CircleCollider2D, _playerData.CharacterSettings.CollisionThresh);
+        _contactsPoller = new ContactsPoller(playerView.CircleCollider2D, _playerData.CharacterSettings.CollisionThresh);
 
-        var pv = go?.GetComponent<PlayerView>();
-        pv.OnClingEnter += SetPermissionClimbEnter;
-        pv.OnClingExit += SetPermissionClimbExit;
+        playerView.OnClingEnter += SetPermissionClimbEnter;
+        playerView.OnClingExit += SetPermissionClimbExit;
 
         _userInput.OnInputHorizontal += MovingX;
         _userInput.OninputVertical += Climb;
@@ -67,6 +64,7 @@ public class Player : ICleanup, IExecute
         {
             if (permissionClimb)
             {
+                isClimbs = true;
                 _playerAction.Climb(_spriteRenderer, true);
 
                 _rigidbody2D.gravityScale = 0;
@@ -77,8 +75,10 @@ public class Player : ICleanup, IExecute
         {
             if (permissionClimb)
             {
+                isClimbs = true;
                 _playerAction.Climb(_spriteRenderer, false);
             }
+            isClimbs = false;
         }
     }
     
@@ -86,10 +86,17 @@ public class Player : ICleanup, IExecute
     {
         if(Math.Abs(dir) > 0)
         {
-            _playerAction.Walk(_spriteRenderer, true);
+            if ((!_contactsPoller.HasRightContacts && dir > 0) || (!_contactsPoller.HasLeftContacts && dir < 0))
+            {
+                _moving.Moving(new Vector2(dir, 0));
+            }
 
-            _moving.Moving(new Vector3(dir, 0f, 0f));
-            _spriteRenderer.flipX = dir < 0;
+            if (!isClimbs)
+            {
+                _playerAction.Walk(_spriteRenderer, true);
+                _spriteRenderer.flipX = dir < 0;
+            }
+
 
             CheckJumpingAndSetState();
         }
@@ -109,7 +116,7 @@ public class Player : ICleanup, IExecute
     #region Encapsulated_Conditions
     private void CheckJumpingAndSetState()
     {
-        if (!_contactsPoller.IsGrounded && (Math.Abs(_rigidbody2D.velocity.magnitude) > 0))
+        if (!_contactsPoller.IsGrounded && (Math.Abs(_rigidbody2D.velocity.magnitude) > 0) && !isClimbs)
         {
             if (_rigidbody2D.velocity.y > 0)
             {
@@ -139,7 +146,7 @@ public class Player : ICleanup, IExecute
     #region Root_Functions
     public void Execute(float deltaTime)
     {
-        if (Math.Abs(_rigidbody2D.velocity.magnitude) == 0 && (_contactsPoller.IsGrounded))
+        if (Math.Abs(_rigidbody2D.velocity.magnitude) == 0 && (_contactsPoller.IsGrounded) && !isClimbs)
         {
             _playerAction.Idle(_spriteRenderer, true);
         }
@@ -152,6 +159,7 @@ public class Player : ICleanup, IExecute
     {
         _userInput.OnInputHorizontal -= Climb;
         _userInput.OninputVertical -= MovingX;
+
         _playerAction.Cleanup();
     }
     #endregion
