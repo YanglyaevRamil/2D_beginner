@@ -28,6 +28,7 @@ internal sealed class ContactsPoller : IExecute
         {
             IsFly = true;
         }
+        
 
         for (int i = 0; i < _contactsCount; i++)
         {
@@ -36,9 +37,9 @@ internal sealed class ContactsPoller : IExecute
             var collider = _contacts[i].collider;
             if (normal.y > _collisionThresh) IsGrounded = true;
 
-            if (normal.x > _collisionThresh && rigidBody == null && !(collider is PolygonCollider2D))
+            if (normal.x > _collisionThresh)
                 HasLeftContacts = true;
-            if (normal.x < -_collisionThresh && rigidBody == null && !(collider is PolygonCollider2D))
+            if (normal.x < -_collisionThresh)
                 HasRightContacts = true;
         }
     }

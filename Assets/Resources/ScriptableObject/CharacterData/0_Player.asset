@@ -20,6 +20,6 @@ MonoBehaviour:
   speedClimb: 0.5
   speedMax: 1.1
   acceleration: 1
-  jumpForce: 150
+  jumpForce: 170
   spriteAnimationsConfig: {fileID: 11400000, guid: d388a70ec5589b2468f21bb3808cc755, type: 2}
   characterSettings: {fileID: 11400000, guid: af9cf5f41e5e3e74abdc25a45c0a6e8b, type: 2}
