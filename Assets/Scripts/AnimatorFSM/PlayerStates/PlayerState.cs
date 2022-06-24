@@ -1,35 +1,24 @@
 
 using UnityEngine;
 
-public class PlayerState : IPlayerState
+public abstract class PlayerState : IExecute, IFixedExecute, ICleanup
 {
-    public virtual void Climb(PlayerAction playerAction, SpriteRenderer spriteRenderer, SpriteAnimator spriteAnimator, bool startOrStop)
+    protected Player _player;
+    protected StateMachine _stateMachine;
+
+    protected PlayerState(Player player, StateMachine stateMachine)
     {
-        playerAction.State = new ClimbPlayerState();
+        _player = player;
+        _stateMachine = stateMachine;
     }
 
-    public virtual void Crouch(PlayerAction playerAction, SpriteRenderer spriteRenderer, SpriteAnimator spriteAnimator, bool startOrStop)
-    { 
-        playerAction.State = new CrouchPlayerState();
-    }
+    public abstract void Enter();
 
-    public virtual void Fall(PlayerAction playerAction, SpriteRenderer spriteRenderer, SpriteAnimator spriteAnimator, bool startOrStop)
-    {
-        playerAction.State = new FallPlayerState();
-    }
+    public abstract void Exit();
 
-    public virtual void Idle(PlayerAction playerAction, SpriteRenderer spriteRenderer, SpriteAnimator spriteAnimator, bool startOrStop)
-    {
-        playerAction.State = new IdlePlayerState();
-    }
+    public abstract void Execute(float deltaTime);
 
-    public virtual void Jump(PlayerAction playerAction, SpriteRenderer spriteRenderer, SpriteAnimator spriteAnimator, bool startOrStop)
-    {
-        playerAction.State = new JumpPlayerState();
-    }
+    public abstract void FixedExecute();
 
-    public virtual void Walk(PlayerAction playerAction, SpriteRenderer spriteRenderer, SpriteAnimator spriteAnimator, bool startOrStop)
-    {
-        playerAction.State = new WalkPlayerState();
-    }
+    public abstract void Cleanup();
 }

@@ -22,14 +22,14 @@ public class PlayerView : MonoBehaviour
     #endregion
 
     #region Trigger
-    public event Action<Transform> OnClingEnter;
-    public event Action OnClingExit;
+    public event Action<Transform> OnInteractionZoneEnter;
+    public event Action OnInteractionZoneExit;
 
     private void OnTriggerEnter2D(Collider2D collision)
     { 
         if ((collision.gameObject?.GetComponent<ICling>()) != null)
         {
-            OnClingEnter?.Invoke(collision.transform);
+            OnInteractionZoneEnter?.Invoke(collision.transform);
         }
     }
 
@@ -37,7 +37,7 @@ public class PlayerView : MonoBehaviour
     {
         if ((collision.gameObject?.GetComponent<ICling>()) != null)
         {
-            OnClingExit?.Invoke();
+            OnInteractionZoneExit?.Invoke();
         }
     }
     #endregion

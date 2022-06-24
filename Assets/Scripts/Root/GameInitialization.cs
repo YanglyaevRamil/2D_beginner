@@ -11,7 +11,7 @@ internal sealed class GameInitialization
 
         var playerGO = loadPrefCharacter.GetGO(CharacterType.Player);
 
-        playerGO.transform.position += new Vector3(0,0.5f,0);
+        playerGO.transform.position += new Vector3(0,0f,0);
 
         var player = new Player(userInput, data.Character[(int)CharacterType.Player], playerGO.GetComponent<PlayerView>());
 

@@ -3,11 +3,30 @@ using UnityEngine;
 
 public class ClimbPlayerState : PlayerState
 {
-    public override void Climb(PlayerAction playerAction, SpriteRenderer spriteRenderer, SpriteAnimator spriteAnimator, bool startOrStop)
+    public ClimbPlayerState(Player player, StateMachine stateMachine) : base(player, stateMachine)
     {
-        if (startOrStop)
-            spriteAnimator.StartAnimation(spriteRenderer, Track.Climb, true);
-        else
-            spriteAnimator.StopAnimation(spriteRenderer);
+
+    }
+
+    public override void Enter()
+    {
+
+    }
+
+    public override void Exit()
+    {
+
+    }
+
+    public override void Execute(float deltaTime)
+    {
+    }
+
+    public override void FixedExecute()
+    {
+    }
+
+    public override void Cleanup()
+    {
     }
 }
