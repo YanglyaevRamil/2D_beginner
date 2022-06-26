@@ -12,12 +12,16 @@ public class PlayerView : MonoBehaviour
 
     [SerializeField]
     private SpriteRenderer _spriteRenderer;
+
+    [SerializeField]
+    private Animator _animator;
     #endregion
 
     #region getComponent_GO
     public Rigidbody2D Rigidbody2D { get { return _rigidbody2D; } }
     public CircleCollider2D CircleCollider2D { get { return _collider2D; } }
     public SpriteRenderer SpriteRenderer { get { return _spriteRenderer; } }
+    public Animator Animator { get { return _animator; } }
     public Transform Transform { get { return transform; } }
     #endregion
 

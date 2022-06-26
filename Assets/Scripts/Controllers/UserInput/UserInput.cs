@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class UserInput : IFixedExecute
+public class UserInput : IExecute
 {
     public event Action<float> OnInputHorizontal
     {
@@ -46,9 +46,14 @@ public class UserInput : IFixedExecute
 
     public void FixedExecute()
     {
+
+    }
+
+    public void Execute(float deltaTime)
+    {
+        _inputJump.GetAxis();
         _inputHorizontal.GetAxis();
         _inputVertical.GetAxis();
         _inputFire.GetAxis();
-        _inputJump.GetAxis();
     }
 }

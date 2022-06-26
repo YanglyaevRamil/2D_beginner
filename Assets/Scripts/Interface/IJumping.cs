@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 public interface IJumping
 {
-    void Jumping(float dir);
+    void Jumping(Vector2 dir);
 }
 

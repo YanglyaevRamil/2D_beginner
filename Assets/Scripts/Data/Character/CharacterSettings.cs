@@ -7,10 +7,10 @@ public class CharacterSettings : ScriptableObject
     private float collisionThresh;
 
     [SerializeField]
-    private float climbThresh;
+    private Vector2 climbThresh;
 
     [SerializeField]
-    private float speedThresh;
+    private Vector2 speedThresh;
 
     [SerializeField]
     private float flyThresh;
@@ -20,8 +20,8 @@ public class CharacterSettings : ScriptableObject
 
 
     public float CollisionThresh { get { return collisionThresh; } }
-    public float ClimbThresh { get { return climbThresh; } }
-    public float SpeedThresh { get { return speedThresh; } }
+    public Vector2 ClimbThresh { get { return climbThresh; } }
+    public Vector2 SpeedThresh { get { return speedThresh; } }
     public float FlyThresh { get { return flyThresh; } }
     public float GravityScale { get { return gravityScale; } }
 }

@@ -1,4 +1,7 @@
 
+
+using UnityEngine;
+
 public class PlayerModel 
 {
     public CharacterType CharacterType { get { return _characterType; } }
@@ -7,11 +10,11 @@ public class PlayerModel
     public int HealthMax { get { return _healthMax; } set { _healthMax = value; } }
     public int HealthNow { get { return _healthNow; } set { _healthNow = value; } }
     public int Damage { get { return _damage; } set { _damage = value; } }
-    public float SpeedClimb { get { return _speedClimb; } set { _speedClimb = value; } }
-    public float SpeedMax { get { return _speedMax; } set { _speedMax = value; } }
-    public float SpeedNow { get { return _speedNow; } set { _speedNow = value; } }
-    public float Acceleration { get { return _acceleration; } set { _acceleration = value; } }
-    public float JumpForce { get { return _jumpForce; } set { _jumpForce = value; } }
+    public Vector2 SpeedClimb { get { return _speedClimb; } set { _speedClimb = value; } }
+    public Vector2 SpeedMax { get { return _speedMax; } set { _speedMax = value; } }
+    public Vector2 SpeedNow { get { return _speedNow; } set { _speedNow = value; } }
+    public Vector2 Acceleration { get { return _acceleration; } set { _acceleration = value; } }
+    public Vector2 JumpForce { get { return _jumpForce; } set { _jumpForce = value; } }
     public SpriteAnimationsConfig SpriteAnimationsConfig { get { return _spriteAnimationsConfig; } set { _spriteAnimationsConfig = value; } }
     public CharacterSettings CharacterSettings { get { return _characterSettings; } set { _characterSettings = value; } }
 
@@ -21,11 +24,11 @@ public class PlayerModel
     private int _healthMax;
     private int _healthNow;
     private int _damage;
-    private float _speedClimb;
-    private float _speedMax;
-    private float _speedNow;
-    private float _acceleration;
-    private float _jumpForce;
+    private Vector2 _speedClimb;
+    private Vector2 _speedMax;
+    private Vector2 _speedNow;
+    private Vector2 _acceleration;
+    private Vector2 _jumpForce;
 
     private SpriteAnimationsConfig _spriteAnimationsConfig;
 
@@ -41,7 +44,7 @@ public class PlayerModel
         _damage = playerData.Damage;
         _speedClimb = playerData.SpeedClimb;
         _speedMax = playerData.SpeedMax;
-        _speedNow = 0; 
+        _speedNow = Vector2.zero; 
         _acceleration = playerData.Acceleration;
         _jumpForce = playerData.JumpForce;
         _spriteAnimationsConfig = playerData.SpriteAnimationsConfig;

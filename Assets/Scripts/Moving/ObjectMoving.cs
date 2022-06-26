@@ -3,40 +3,29 @@ using UnityEngine;
 internal sealed class ObjectMoving : IMoving
 {
     private Rigidbody2D _rigidbody2D;
-    private float _speedMax;
-    private float _acceleration;
-    private float _speedTresh;
+    private Vector2 _speedMax;
+    private Vector2 _speedTresh;
 
-    public ObjectMoving(Rigidbody2D rigidbody2D, float speedMax, float acceleration, float speedTresh)
+    public ObjectMoving(Rigidbody2D rigidbody2D, Vector2 speedMax, Vector2 speedTresh)
     {
         _rigidbody2D = rigidbody2D;
         _speedMax = speedMax;
-        _acceleration = acceleration;
         _speedTresh = speedTresh;
     }
-
-    public void Moving(Vector2 dir)
+    public void Moving(Vector2 acceleration) 
     {
-        if (Mathf.Abs(dir.x) > _speedTresh)
-        {
-            if (Mathf.Abs(_rigidbody2D.velocity.x) <= _speedMax)
-            {
-                _rigidbody2D.velocity += dir * _acceleration;
-            }
-        }
-        else
-        {
-            _rigidbody2D.velocity = new Vector2(0, _rigidbody2D.velocity.y);
-        }
+        if (_rigidbody2D.velocity.magnitude <= _speedMax.magnitude)
+            _rigidbody2D.AddForceAtPosition(acceleration, _rigidbody2D.position + acceleration.normalized, ForceMode2D.Force);
     }
 
-    public void UpdateSpeedMax(float newSpeedMax)
+    public void MovePosition(Vector2 velocity)
+    {
+
+        _rigidbody2D.MovePosition((Vector2)_rigidbody2D.position + velocity);
+    }
+
+    public void UpdateSpeedMax(Vector2 newSpeedMax)
     {
         _speedMax += newSpeedMax;
-    }
-
-    public void UpdateAcceleration(float newAcceleration)
-    {
-        _acceleration += newAcceleration;
     }
 }

@@ -20,10 +20,12 @@ public class CrouchPlayerState : PlayerState
 
     public override void Execute(float deltaTime)
     {
+        base.Execute(deltaTime);
     }
 
     public override void FixedExecute()
     {
+        base.FixedExecute();
     }
 
     public override void Cleanup()

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -6490243290431451189}
   - component: {fileID: -7012854266990186158}
   - component: {fileID: 2699649312837565681}
+  - component: {fileID: 2198213868777050672}
   m_Layer: 0
   m_Name: 0_Player
   m_TagString: Untagged
@@ -98,8 +99,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 0.1
+  m_AngularDrag: 0.1
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 1
@@ -137,3 +138,23 @@ MonoBehaviour:
   _rigidbody2D: {fileID: -6490243290431451189}
   _collider2D: {fileID: -7012854266990186158}
   _spriteRenderer: {fileID: 2910237726136559858}
+  _animator: {fileID: 2198213868777050672}
+--- !u!95 &2198213868777050672
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3627639068971173758}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bd177806095a27a429089700975552cc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

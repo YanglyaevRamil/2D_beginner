@@ -19,16 +19,19 @@ public class CharacterData : ScriptableObject
     private int damage;
 
     [SerializeField]
-    private float speedClimb;
+    private Vector2 speedClimb;
 
     [SerializeField]
-    private float speedMax;
+    private Vector2 speedMax;
 
     [SerializeField]
-    private float acceleration;
+    private Vector2 acceleration;
 
     [SerializeField]
-    private float jumpForce;
+    private Vector2 jumpForce;
+
+    [SerializeField]
+    private int jumpNumber;
 
     [SerializeField]
     private SpriteAnimationsConfig spriteAnimationsConfig;
@@ -41,10 +44,11 @@ public class CharacterData : ScriptableObject
     public string Description { get { return description; } }
     public int Health { get { return health; } }
     public int Damage { get { return damage; } }
-    public float SpeedClimb { get { return speedClimb; } }
-    public float SpeedMax { get { return speedMax; } }
-    public float Acceleration { get { return acceleration; } }
-    public float JumpForce { get { return jumpForce; } }
+    public Vector2 SpeedClimb { get { return speedClimb; } }
+    public Vector2 SpeedMax { get { return speedMax; } }
+    public Vector2 Acceleration { get { return acceleration; } }
+    public Vector2 JumpForce { get { return jumpForce; } }
+    public int JumpNumber { get { return jumpNumber; } }
     public SpriteAnimationsConfig SpriteAnimationsConfig => spriteAnimationsConfig;
     public CharacterSettings CharacterSettings { get { return characterSettings; } }
 }
