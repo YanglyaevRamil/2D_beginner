@@ -38,7 +38,7 @@ public class WalkPlayerState : PlayerState
             else
             {
                 if (!_player.IsHasLeftContacts)
-                    _movDir = (-1) * _player.PlayerData.Acceleration;
+                    _movDir = -1 * _player.PlayerData.Acceleration;
                 else
                     _player.PlayerView.Rigidbody2D.velocity = Vector2.zero;
             }
@@ -82,6 +82,7 @@ public class WalkPlayerState : PlayerState
         base.FixedExecute();
 
         _moving.Moving(_movDir);
+        //_moving.MovePosition(_movDir);
     }
 
     public override void Cleanup()

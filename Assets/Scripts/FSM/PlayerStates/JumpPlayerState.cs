@@ -7,7 +7,7 @@ public class JumpPlayerState : PlayerState
     private IMoving _moving;
     private int _numJump;
     private Vector2 _movDir;
-    private Vector2 _jumpDir;
+    protected Vector2 _jumpDir;
     public JumpPlayerState(Player player, StateMachine stateMachine) : base(player, stateMachine)
     {
         _jumping = new ObjectJump(player.PlayerView.Rigidbody2D);
@@ -29,20 +29,15 @@ public class JumpPlayerState : PlayerState
             {
                 if (!_player.IsHasRightContacts)
                     _movDir = _player.PlayerData.Acceleration;
-                //else
-                    //_player.PlayerView.Rigidbody2D.velocity = Vector2.zero;
             }
             else
             {
                 if (!_player.IsHasLeftContacts)
                     _movDir = (-1) * _player.PlayerData.Acceleration;
-                //else
-                    //_player.PlayerView.Rigidbody2D.velocity = Vector2.zero;
             }
         }
         else
         {
-            //_player.PlayerView.Rigidbody2D.velocity = new Vector2(0, 0);
             _movDir = Vector2.zero;
         }
     }
@@ -103,6 +98,7 @@ public class JumpPlayerState : PlayerState
         _jumping.Jumping(_jumpDir);
 
         _moving.Moving(_movDir);
+        //_moving.MovePosition(_movDir);
     }
 
     public override void Cleanup()

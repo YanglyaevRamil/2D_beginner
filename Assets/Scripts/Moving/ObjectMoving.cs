@@ -20,8 +20,7 @@ internal sealed class ObjectMoving : IMoving
 
     public void MovePosition(Vector2 velocity)
     {
-
-        _rigidbody2D.MovePosition((Vector2)_rigidbody2D.position + velocity);
+        _rigidbody2D.MovePosition(_rigidbody2D.position + velocity);
     }
 
     public void UpdateSpeedMax(Vector2 newSpeedMax)
