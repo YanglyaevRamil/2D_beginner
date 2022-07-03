@@ -1,26 +1,23 @@
-using UnityEngine;
 
 internal sealed class ObjectLifeCycle : ILifeCycle
 {
-    public int Health { get { return _health; } }
-    private int _health;
+    private Health _health;
 
-    public ObjectLifeCycle(int health)
+    public ObjectLifeCycle(Health health)
     {
         _health = health;
     }
-
+    
     public void DamageTake(int damageTaken)
     {
-        _health -= damageTaken;
+        _health.SetHeltNow(_health.HealthNow - damageTaken);
     }
 
-    public bool DeathCheck(out int healthLevel)
+    public bool DeathCheck()
     {
-        healthLevel = _health;
-        if (_health <= 0)
+        if (_health.HealthNow <= 0)
         {
-            _health = 0;
+            _health.SetHeltNow(0);
             return true;
         }
         else
@@ -30,8 +27,13 @@ internal sealed class ObjectLifeCycle : ILifeCycle
         
     }
 
-    public void UpdateHealth(int newHealth)
+    public void UpdateHealthNow(int newHealth)
     {
-        _health += newHealth;
+        _health.SetHeltNow(newHealth);
+    }
+
+    public void UpdateHealthMax(int newHealth)
+    {
+        _health.SetHeltMax(newHealth);
     }
 }

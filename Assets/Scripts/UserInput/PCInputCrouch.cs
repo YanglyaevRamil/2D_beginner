@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 
-public sealed class PCInputFire : IUserInputProxy
+public sealed class PCInputCrouch : IUserInputProxy
 {
     public event Action<float> AxisOnChange = delegate (float f) { };
 

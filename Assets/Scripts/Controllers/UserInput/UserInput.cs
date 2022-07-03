@@ -27,10 +27,17 @@ public class UserInput : IExecute
         remove { _inputJump.AxisOnChange -= value; }
     }
 
+    public event Action<float> OninputCrouch
+    {
+        add { _inputCrouch.AxisOnChange += value; }
+        remove { _inputCrouch.AxisOnChange -= value; }
+    }
+
     private IUserInputProxy _inputHorizontal;
     private IUserInputProxy _inputVertical;
     private IUserInputProxy _inputFire;
     private IUserInputProxy _inputJump;
+    private IUserInputProxy _inputCrouch;
 
     public UserInput()
     {
@@ -42,6 +49,7 @@ public class UserInput : IExecute
         _inputVertical = new PCInputVertical();
         _inputFire = new PCInputFire();
         _inputJump = new PCInputJump();
+        _inputCrouch = new PCInputCrouch();
     }
 
     public void FixedExecute()
@@ -55,5 +63,6 @@ public class UserInput : IExecute
         _inputHorizontal.GetAxis();
         _inputVertical.GetAxis();
         _inputFire.GetAxis();
+        _inputCrouch.GetAxis();
     }
 }

@@ -13,12 +13,13 @@ public class ClimbPlayerState : PlayerState
 
     public override void Enter()
     {
+        _player.SpriteAnimator.StartAnimation(_player.PlayerView.SpriteRenderer, Track.Climb, true);
         _player.PlayerView.Rigidbody2D.gravityScale = 0;
-       // _player.PlayerView.Animator.Play(PlayerStateManager.Climb);
     }
 
     public override void Exit()
     {
+        base.Exit();
         _player.PlayerView.Rigidbody2D.gravityScale = _player.PlayerData.CharacterSettings.GravityScale;
     }
 
@@ -31,6 +32,8 @@ public class ClimbPlayerState : PlayerState
 
             if (_player.IsInputVer)
             {
+                _player.SpriteAnimator.StartAnimation(_player.PlayerView.SpriteRenderer, Track.Climb, true);
+
                 if (_player.IsInputVerPositivY)
                 {
                     _movDir.y = _player.PlayerData.SpeedClimb.y;
@@ -55,6 +58,8 @@ public class ClimbPlayerState : PlayerState
         }
         else
         {
+            _player.SpriteAnimator.StopAnimation(_player.PlayerView.SpriteRenderer);
+
             _player.PlayerView.Rigidbody2D.velocity = Vector2.zero;
             _movDir = Vector2.zero;
         }
@@ -67,7 +72,7 @@ public class ClimbPlayerState : PlayerState
             _stateMachine.ChangeState(_player.IdlePlayerState);
         }
 
-        if (_player.IsInputJump || !_player.IsInteractionStairs)
+        if (_player.IsInputJump || _player.IsInteractionStairs == null)
         {
             _stateMachine.ChangeState(_player.JumpPlayerState);
         }

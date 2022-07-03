@@ -19,7 +19,7 @@ public abstract class PlayerState : IExecute, IFixedExecute, ICleanup
 
     public virtual void Exit() 
     {
-    
+        _player.SpriteAnimator.StopAnimation(_player.PlayerView.SpriteRenderer);
     }
 
     public virtual void Execute(float deltaTime) 

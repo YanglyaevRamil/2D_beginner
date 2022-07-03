@@ -14,13 +14,11 @@ public class WalkPlayerState : PlayerState
     public override void Enter()
     {
         _player.SpriteAnimator.StartAnimation(_player.PlayerView.SpriteRenderer, Track.Moving, true);
-        //_player.PlayerView.Animator.SetBool(PlayerStateManager.Moving, true);
     }
 
     public override void Exit()
     {
-        _player.SpriteAnimator.StopAnimation(_player.PlayerView.SpriteRenderer);
-        //_player.PlayerView.Animator.SetBool(PlayerStateManager.Moving, false);
+        base.Exit();
     }
 
     #region Logic
@@ -38,7 +36,7 @@ public class WalkPlayerState : PlayerState
             else
             {
                 if (!_player.IsHasLeftContacts)
-                    _movDir = -1 * _player.PlayerData.Acceleration;
+                    _movDir = (-1) * _player.PlayerData.Acceleration;
                 else
                     _player.PlayerView.Rigidbody2D.velocity = Vector2.zero;
             }
@@ -57,13 +55,20 @@ public class WalkPlayerState : PlayerState
             _stateMachine.ChangeState(_player.IdlePlayerState);
         }
 
-        if ((_player.IsGraunded && _player.IsInputJump) || (!_player.IsGraunded))
+        //if ((_player.IsGraunded && _player.IsInputJump) || (!_player.IsGraunded))
+        //{
+        //    _stateMachine.ChangeState(_player.JumpPlayerState);
+        //}
+
+        if (_player.IsInputJump)
         {
             _stateMachine.ChangeState(_player.JumpPlayerState);
         }
 
-        if (_player.IsInteractionStairs && _player.IsInputVer)
+        if ((_player.IsInteractionStairs != null) && _player.IsInputVer)
+        {
             _stateMachine.ChangeState(_player.ClimbPlayerState);
+        }
     }
     #endregion
 
@@ -82,7 +87,6 @@ public class WalkPlayerState : PlayerState
         base.FixedExecute();
 
         _moving.Moving(_movDir);
-        //_moving.MovePosition(_movDir);
     }
 
     public override void Cleanup()

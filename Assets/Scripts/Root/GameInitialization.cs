@@ -13,12 +13,13 @@ internal sealed class GameInitialization
 
         playerGO.transform.position += new Vector3(0,0f,0);
 
-        var player = new Player(userInput, data.Character[(int)CharacterType.Player], playerGO.GetComponent<PlayerView>());
+        var PlayerModel = new PlayerModel(data.Character[(int)CharacterType.Player]);
+        var playerContoller = new Player(userInput, PlayerModel, playerGO.GetComponent<PlayerView>());
 
         camera.transform.SetParent(playerGO.transform); // ??? crutch ???
 
         controllers.Add(userInput);
         controllers.Add(paralax);
-        controllers.Add(player);
+        controllers.Add(playerContoller);
     }
 }

@@ -10,14 +10,12 @@ public class IdlePlayerState : PlayerState
 
     public override void Enter()
     {
-        //_player.PlayerView.Animator.SetBool(PlayerStateManager.Idle, true);
         _player.SpriteAnimator.StartAnimation(_player.PlayerView.SpriteRenderer, Track.Idle, true);
     }
 
     public override void Exit()
     {
-        _player.SpriteAnimator.StopAnimation(_player.PlayerView.SpriteRenderer);
-        //_player.PlayerView.Animator.SetBool(PlayerStateManager.Idle, false);
+        base.Exit();
     }
 
     #region Logic
@@ -33,9 +31,14 @@ public class IdlePlayerState : PlayerState
             _stateMachine.ChangeState(_player.WalkPlayerState);
         }
 
-        if (_player.IsInteractionStairs && _player.IsGraunded && _player.IsInputVer)
+        if (_player.IsInteractionStairs != null && _player.IsGraunded && _player.IsInputVer)
         {
             _stateMachine.ChangeState(_player.ClimbPlayerState);
+        }
+
+        if (_player.IsGraunded && _player.IsInputCrouch)
+        {
+            _stateMachine.ChangeState(_player.CrouchPlayerState);
         }
     }
     #endregion

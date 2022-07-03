@@ -26,14 +26,27 @@ public class PlayerView : MonoBehaviour
     #endregion
 
     #region Trigger
-    public event Action<Transform> OnInteractionZoneEnter;
+    public event Action<Collider2D> OnInteractionZoneEnter;
+    public event Action<ICoinProvider> OnCoinZone;
+    public event Action<IDamageProvider> OnDamageZone;
     public event Action OnInteractionZoneExit;
-
+    private ICoinProvider CoinProvider;
+    private IDamageProvider DamageProvider;
     private void OnTriggerEnter2D(Collider2D collision)
     { 
         if ((collision.gameObject?.GetComponent<ICling>()) != null)
         {
-            OnInteractionZoneEnter?.Invoke(collision.transform);
+            OnInteractionZoneEnter?.Invoke(collision);
+        }
+
+        if ((CoinProvider = collision.gameObject?.GetComponent<ICoinProvider>()) != null)
+        {
+            OnCoinZone?.Invoke(CoinProvider);
+        }
+
+        if ((DamageProvider = collision.gameObject?.GetComponent<IDamageProvider>()) != null)
+        {
+            OnDamageZone?.Invoke(DamageProvider);
         }
     }
 

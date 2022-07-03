@@ -7,8 +7,6 @@ public sealed class PCInputJump : IUserInputProxy
 
     public void GetAxis()
     {
-        AxisOnChange.Invoke(Input.GetAxis(AxisManager.JUMP));
-        //var input = Input.GetButtonDown(AxisManager.JUMP);
-        //AxisOnChange.Invoke(input ? 1:0) ;
+        AxisOnChange.Invoke(Input.GetButtonDown(AxisManager.JUMP) ? 1:0) ;
     }
 }
